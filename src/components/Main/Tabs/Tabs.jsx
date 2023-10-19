@@ -20,7 +20,7 @@ const LIST = [
 export const Tabs = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isDropDown, setIsDropDown] = useState(false);
-  const [selectedMenuItem, setSelectedMenuItem] = useState('Меню');
+  const [selectedMenuItem, setSelectedMenuItem] = useState('Главная');
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
       setIsDropDown(true);
@@ -41,11 +41,16 @@ export const Tabs = () => {
   return (
     <div className={style.container}>
       {isDropDown && <div className={style.wrapperBtn}>
-        <button className={style.btn}
-          onClick={() => setIsDropDownOpen(!isDropDownOpen)}>
+        <Text
+          As='button'
+          tsize={16}
+          dsize={18}
+          className={style.btn}
+          onClick={() => setIsDropDownOpen(!isDropDownOpen)}
+        >
           {selectedMenuItem}
           <ArrowIcon width={15} height={15} />
-        </button>
+        </Text>
       </div>}
 
       {(isDropDownOpen || !isDropDown) &&
