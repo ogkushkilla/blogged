@@ -2,7 +2,6 @@ import style from './PostContent.module.css';
 import PropTypes from 'prop-types';
 import {ReactComponent as DeleteIcon} from './img/delete.svg';
 import {Text} from '../../../../../UI/Text';
-console.log(Text);
 
 export const PostContent = ({data}) => {
   console.log();
