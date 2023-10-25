@@ -2,9 +2,12 @@ import style from './PostContent.module.css';
 import PropTypes from 'prop-types';
 import {ReactComponent as DeleteIcon} from './img/delete.svg';
 import {Text} from '../../../../../UI/Text';
+import Modal from '../../../../Modal';
+import {useState} from 'react';
 
-export const PostContent = ({title, author}) => {
-  console.log();
+export const PostContent = ({id, title, author}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className={style.content}>
       <Text As='h2' className={style.title}>
@@ -14,6 +17,9 @@ export const PostContent = ({title, author}) => {
           tsize={24}
           className={style.linkPost}
           href="#post"
+          onClick={() =>
+            setIsModalOpen(true)
+          }
         >
           {title}
         </Text>
@@ -31,11 +37,21 @@ export const PostContent = ({title, author}) => {
       <button className={style.delete}>
         <DeleteIcon />
       </button>
+      {
+        isModalOpen &&
+          <Modal
+            id={id}
+            closeModal={() =>
+              setIsModalOpen(false)
+            }
+          />
+      }
     </div>
   );
 };
 
 PostContent.propTypes = {
+  id: PropTypes.string,
   title: PropTypes.string,
   author: PropTypes.string,
 };
