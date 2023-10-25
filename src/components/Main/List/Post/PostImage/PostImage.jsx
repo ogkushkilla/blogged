@@ -2,13 +2,16 @@ import style from './PostImage.module.css';
 import notphoto from '../img/notphoto.jpg';
 import PropTypes from 'prop-types';
 
-export const PostImage = ({data}) => {
-  console.log();
+export const PostImage = ({thumbnail, title}) => {
+  const thumbnailSource = thumbnail.includes('.jpg') ?
+    thumbnail :
+    notphoto;
   return (
-    <img className={style.img} src={notphoto} alt={data.title} />
+    <img className={style.img} src={thumbnailSource} alt={title} />
   );
 };
 
 PostImage.propTypes = {
-  data: PropTypes.object,
+  thumbnail: PropTypes.string,
+  title: PropTypes.string,
 };

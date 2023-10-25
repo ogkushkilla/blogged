@@ -2,7 +2,7 @@ import {Text} from '../../../../../UI/Text';
 import style from './PostRating.module.css';
 import PropTypes from 'prop-types';
 
-export const PostRating = ({data}) => {
+export const PostRating = ({ups}) => {
   console.log();
   return (
     <div className={style.rating}>
@@ -13,7 +13,7 @@ export const PostRating = ({data}) => {
         dsize={18}
         className={style.ups}
       >
-        {data.ups}
+        {ups}
       </Text>
       <button className={style.down} aria-label='Понизить рейтинг' />
     </div>
@@ -21,5 +21,5 @@ export const PostRating = ({data}) => {
 };
 
 PostRating.propTypes = {
-  data: PropTypes.object,
+  ups: PropTypes.number,
 };
