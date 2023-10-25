@@ -8,7 +8,7 @@ export const List = () => {
   return (
     <ul className={style.list}>
       {
-        posts ? (
+        posts.length > 0 ? (
           posts.map(post =>
             <Post key={post.data.id} postData={post.data} />
           )

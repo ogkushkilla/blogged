@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {ReactComponent as DeleteIcon} from './img/delete.svg';
 import {Text} from '../../../../../UI/Text';
 
-export const PostContent = ({data}) => {
+export const PostContent = ({title, author}) => {
   console.log();
   return (
     <div className={style.content}>
@@ -15,7 +15,7 @@ export const PostContent = ({data}) => {
           className={style.linkPost}
           href="#post"
         >
-          {data.title}
+          {title}
         </Text>
       </Text>
       <Text
@@ -26,7 +26,7 @@ export const PostContent = ({data}) => {
         className={style.linkAuthor}
         href="#author"
       >
-        {data.author}
+        {author}
       </Text>
       <button className={style.delete}>
         <DeleteIcon />
@@ -36,5 +36,6 @@ export const PostContent = ({data}) => {
 };
 
 PostContent.propTypes = {
-  data: PropTypes.object,
+  title: PropTypes.string,
+  author: PropTypes.string,
 };

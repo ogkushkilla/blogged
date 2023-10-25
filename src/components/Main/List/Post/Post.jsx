@@ -6,13 +6,19 @@ import PostRating from './PostRating';
 import PostDate from './PostDate';
 
 export const Post = ({postData}) => {
-  console.log();
+  const {
+    thumbnail,
+    title,
+    author,
+    ups,
+    created,
+  } = postData;
   return (
     <li className={style.post}>
-      <PostImage data={postData} />
-      <PostContent data={postData} />
-      <PostRating data={postData} />
-      <PostDate data={postData} />
+      <PostImage thumbnail={thumbnail} />
+      <PostContent title={title} author={author} />
+      <PostRating ups={ups} />
+      <PostDate created={created} />
     </li>
   );
 };
