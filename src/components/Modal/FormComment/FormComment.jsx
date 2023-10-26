@@ -1,8 +1,10 @@
-import {useRef, useState} from 'react';
+import {useContext, useRef, useState} from 'react';
 import {Text} from '../../../UI/Text';
 import style from './FormComment.module.css';
+import {authContext} from '../../../context/authContext';
 
 export const FormComment = () => {
+  const {auth} = useContext(authContext);
   const [isFormShow, setIsFormShow] = useState(false);
   const [isButtonShow, setIsButtonShow] = useState(true);
   const textareaRef = useRef(null);
@@ -31,7 +33,7 @@ export const FormComment = () => {
       {isFormShow &&
       <form className={style.form} onSubmit={handleSubmit}>
         <Text As='h3' size={14} tsize={18}>
-          Имя авторизованного пользователя
+          {auth.name}
         </Text>
         <textarea className={style.textarea} ref={textareaRef}></textarea>
         <button className={style.btn}>Отправить</button>
