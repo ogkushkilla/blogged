@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 export function PostDate({created}) {
   console.log();
   return (
-    <time className={style.date} dateTime={created}>
-      {formatDate(created)}
-    </time>
+    created &&
+      <time className={style.date} dateTime={created}>
+        {formatDate(created)}
+      </time>
   );
 }
 

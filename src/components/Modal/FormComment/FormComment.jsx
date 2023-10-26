@@ -1,19 +1,18 @@
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import {Text} from '../../../UI/Text';
 import style from './FormComment.module.css';
 
 export const FormComment = () => {
-  const textareaRef = useRef(null);
   const [isFormShow, setIsFormShow] = useState(false);
   const [isButtonShow, setIsButtonShow] = useState(true);
-
-  useEffect(() => {
-    if (textareaRef.current) textareaRef.current.focus();
-  }, [textareaRef]);
+  const textareaRef = useRef(null);
 
   const handleClick = () => {
     setIsFormShow(true);
     setIsButtonShow(false);
+    if (isFormShow) {
+      textareaRef.current.focus();
+    }
   };
 
   const handleSubmit = (e) => {
