@@ -7,16 +7,18 @@ import PostDate from './PostDate';
 
 export const Post = ({postData}) => {
   const {
+    id,
     thumbnail,
     title,
     author,
     ups,
+    selftext: markdown,
     created,
   } = postData;
   return (
     <li className={style.post}>
       <PostImage thumbnail={thumbnail} />
-      <PostContent title={title} author={author} />
+      <PostContent id={id} title={title} author={author} markdown={markdown} />
       <PostRating ups={ups} />
       <PostDate created={created} />
     </li>
