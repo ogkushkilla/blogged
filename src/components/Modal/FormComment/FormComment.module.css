@@ -12,6 +12,10 @@
   resize: vertical;
 }
 
+.textarea:focus {
+  background-color: #eeeeee;
+}
+
 .btn {
   display: block;
   margin-left: auto;
