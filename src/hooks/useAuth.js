@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
 import {useDispatch, useSelector} from 'react-redux';
-import {deleteToken, updateToken} from '../store';
+import {deleteToken} from '../store';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const useAuth = () => {
       }
     }).then((response) => {
       if (response.status === 401) {
-        dispatch(updateToken(token));
+        throw new Error(response.status);
       }
       return response.json();
     }).then(({name, icon_img: iconImg}) => {
