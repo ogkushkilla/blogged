@@ -1,10 +1,13 @@
 import {useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
-import {useToken} from './useToken';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateToken} from '../store';
 
 export const usePosts = () => {
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.token);
+
   const [posts, setPosts] = useState([]);
-  const [token] = useToken();
 
   useEffect(() => {
     if (!token) return;
@@ -15,7 +18,7 @@ export const usePosts = () => {
       }
     }).then((response) => {
       if (response.status === 401) {
-        throw new Error(response.status);
+        dispatch(updateToken(token));
       }
       return response.json();
     }).then((json) => {
