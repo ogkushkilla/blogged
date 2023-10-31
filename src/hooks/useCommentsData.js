@@ -1,10 +1,8 @@
 import {useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
-import {useDispatch, useSelector} from 'react-redux';
-import {updateToken} from '../store';
+import {useSelector} from 'react-redux';
 
 export const useCommentsData = (postId) => {
-  const dispatch = useDispatch();
   const token = useSelector(state => state.token);
 
   const [comments, setComments] = useState([]);
@@ -18,7 +16,7 @@ export const useCommentsData = (postId) => {
       }
     }).then((response) => {
       if (response.status === 401) {
-        dispatch(updateToken(token));
+        throw new Error(response.status);
       }
       return response.json();
     }).then((json) => {
