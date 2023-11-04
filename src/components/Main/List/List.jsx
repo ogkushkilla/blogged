@@ -1,19 +1,19 @@
-import {useContext} from 'react';
+import {Preloader} from '../../../UI/Preloader/Preloader';
+import {usePosts} from '../../../hooks/usePosts';
 import style from './List.module.css';
 import Post from './Post';
-import {postContext} from '../../../context/postContext';
 
 export const List = () => {
-  const [posts] = useContext(postContext);
+  const [posts, status] = usePosts();
   return (
     <ul className={style.list}>
-      {
-        posts.length > 0 ? (
-          posts.map(post =>
-            <Post key={post.data.id} postData={post.data} />
-          )
-        ) : <li>Нет популярных постов</li>
-      }
+      {status === 'loading' && <Preloader/>}
+      {status === 'loaded' && (
+        posts.map(post =>
+          <Post key={post.data.id} postData={post.data} />
+        )
+      )}
+      {status === 'error' && <li>Нет популярных постов</li>}
     </ul>
   );
 };

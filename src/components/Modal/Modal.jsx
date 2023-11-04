@@ -6,13 +6,14 @@ import FormComment from '../Modal/FormComment';
 import Comments from '../Modal/Comments';
 import style from './Modal.module.css';
 import Markdown from 'markdown-to-jsx';
+import {Preloader} from '../../UI/Preloader/Preloader';
 
 export const Modal = ({id, closeModal}) => {
   const overlayRef = useRef(null);
   const closeRef = useRef(null);
-  const [data] = useCommentsData(id);
-  const post = data.postData;
-  const comments = data.commentsData;
+  const [comments, status, error] = useCommentsData(id);
+  const postData = comments.postData;
+  const commentsData = comments.commentsData;
 
   const handleClick = (e) => {
     const target = e.target;
@@ -40,41 +41,43 @@ export const Modal = ({id, closeModal}) => {
   }, []);
 
   return ReactDOM.createPortal(
-    (post ?
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-        <h2 className={style.title}>
-          {post.title}
-        </h2>
+        {status === 'loading' && <Preloader />}
+        {status === 'error' && error}
+        {status === 'loaded' && (
+          <>
+            <h2 className={style.title}>
+              {postData.title}
+            </h2>
 
-        <div className={style.content}>
-          <Markdown options={{
-            overrides: {
-              a: {
-                props: {
-                  target: '_blank',
+            <div className={style.content}>
+              <Markdown options={{
+                overrides: {
+                  a: {
+                    props: {
+                      target: '_blank',
+                    },
+                  },
                 },
-              },
-            },
-          }}>
-            {post.selftext}
-          </Markdown>
-        </div>
+              }}>
+                {postData.selftext}
+              </Markdown>
+            </div>
 
-        <p className={style.author}>
-          {post.author}
-        </p>
+            <p className={style.author}>
+              {postData.author}
+            </p>
 
-        <FormComment />
+            <FormComment />
 
-        <Comments comments={comments} />
+            <Comments comments={commentsData} />
 
-        <button className={style.close} ref={closeRef}></button>
+            <button className={style.close} ref={closeRef}></button>
+          </>
+        )}
       </div>
-    </div> :
-    <div className={style.overlay} ref={overlayRef}>
-      <div className={style.modal}>Загрузка...</div>
-    </div>),
+    </div>,
     document.getElementById('modal-root')
   );
 };
