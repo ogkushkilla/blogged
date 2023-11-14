@@ -9,18 +9,20 @@ import {ReactComponent as TopIcon} from './img/top.svg';
 import {ReactComponent as BestIcon} from './img/best.svg';
 import {ReactComponent as HotIcon} from './img/hot.svg';
 import {Text} from '../../../UI/Text';
+import {useNavigate} from 'react-router-dom';
 
 const LIST = [
-  {value: 'Главная', Icon: HomeIcon},
-  {value: 'Топ', Icon: TopIcon},
-  {value: 'Лучшие', Icon: BestIcon},
-  {value: 'Горячие', Icon: HotIcon},
+  {value: 'Главная', Icon: HomeIcon, link: '/'},
+  {value: 'Топ', Icon: TopIcon, link: 'top'},
+  {value: 'Лучшие', Icon: BestIcon, link: 'best'},
+  {value: 'Горячие', Icon: HotIcon, link: 'hot'},
 ].map(assignRandomId);
 
 export const Tabs = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isDropDown, setIsDropDown] = useState(false);
   const [selectedMenuItem, setSelectedMenuItem] = useState('Главная');
+  const navigate = useNavigate();
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
       setIsDropDown(true);
@@ -55,7 +57,7 @@ export const Tabs = () => {
 
       {(isDropDownOpen || !isDropDown) &&
       <ul className={style.list} onClick={() => setIsDropDownOpen(false)}>
-        {LIST.map(({value, id, Icon}) => (
+        {LIST.map(({value, link, id, Icon}) => (
           <li className={style.item} key={id}>
             <Text
               As='button'
@@ -64,6 +66,11 @@ export const Tabs = () => {
               className={style.btn}
               onClick={() => {
                 setSelectedMenuItem(value);
+                if (value === 'Главная') {
+                  navigate(`/`);
+                } else {
+                  navigate(`/category/${link}`);
+                }
               }}
             >
               {value}

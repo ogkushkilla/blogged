@@ -7,8 +7,11 @@ import Comments from '../Modal/Comments';
 import style from './Modal.module.css';
 import Markdown from 'markdown-to-jsx';
 import {Preloader} from '../../UI/Preloader/Preloader';
+import {useNavigate, useParams} from 'react-router-dom';
 
-export const Modal = ({id, closeModal}) => {
+export const Modal = () => {
+  const {id, page} = useParams();
+  const navigate = useNavigate();
   const overlayRef = useRef(null);
   const closeRef = useRef(null);
   const [comments, status, error] = useCommentsData(id);
@@ -19,14 +22,14 @@ export const Modal = ({id, closeModal}) => {
     const target = e.target;
     if (target === overlayRef.current ||
         target === closeRef.current) {
-      closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
   const handleKeyUp = (e) => {
     const keyCode = e.code;
     if (keyCode === 'Escape') {
-      closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
