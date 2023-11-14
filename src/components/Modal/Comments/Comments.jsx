@@ -6,7 +6,7 @@ import style from './Comments.module.css';
 export const Comments = ({comments}) => (
   <ul className={style.list}>
     {
-      comments.length > 0 ? comments.map((comment) =>
+      comments.length ? comments.map((comment) => comment.data.body && (
         <li key={comment.data.id} className={style.item}>
           <Text As='h2' className={style.author} size={18} tsize={22}>
             {comment.data.author}
@@ -16,7 +16,7 @@ export const Comments = ({comments}) => (
           </Text>
           <PostDate created={comment.data.created} />
         </li>
-      ) : <li>Нет комментариев</li>
+      )) : <li>Нет комментариев</li>
     }
   </ul>
 );
