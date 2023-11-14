@@ -42,7 +42,7 @@ export const FormComment = () => {
       {isFormShow &&
       <form className={style.form} onSubmit={handleSubmit}>
         <Text As='h3' size={14} tsize={18}>
-          {auth.name}
+          {auth}
         </Text>
         <textarea
           className={style.textarea}
