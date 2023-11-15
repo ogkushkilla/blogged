@@ -16,6 +16,7 @@ export const Main = () => (
           <Route path='post/:id' element={<Modal />} />
         </Route>
         <Route path='/' element={<Home />} />
+        <Route path='/auth' element={<Home />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </Layout>
