@@ -20,7 +20,9 @@ export const List = () => {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        dispatch(postsRequestAsync());
+        if (status !== 'loading') {
+          dispatch(postsRequestAsync());
+        }
       }
     }, {
       rootMargin: '100px',
@@ -33,12 +35,12 @@ export const List = () => {
         observer.unobserve(endList.current);
       }
     };
-  }, [endList.current]);
+  }, [endList.current, status]);
 
   return (
     <>
       <ul className={style.list}>
-        {posts.length && (
+        {posts.length > 0 && (
           posts.map((post) =>
             <Post key={post.data.id} postData={post.data} />
           )
