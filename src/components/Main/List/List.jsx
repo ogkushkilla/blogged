@@ -5,6 +5,7 @@ import Post from './Post';
 import {useDispatch, useSelector} from 'react-redux';
 import {postsRequestAsync} from '../../../store/posts/postsAction';
 import {Outlet, useParams} from 'react-router-dom';
+import {clearPosts} from '../../../store/posts/postsSlice';
 
 export const List = () => {
   const posts = useSelector(state => state.postsReducer.posts);
@@ -14,6 +15,7 @@ export const List = () => {
   const {page} = useParams();
 
   useEffect(() => {
+    dispatch(clearPosts());
     dispatch(postsRequestAsync(page));
   }, [page]);
 
