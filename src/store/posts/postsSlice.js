@@ -22,10 +22,12 @@ export const postsSlice = createSlice({
   extraReducers: {
     [postsRequestAsync.pending.type]: (state) => {
       state.status = 'loading';
+      state.page = '';
       state.error = '';
     },
     [postsRequestAsync.fulfilled.type]: (state, action) => {
       state.status = 'loaded';
+      if (!action.payload) return;
       state.error = '';
       state.page = action.payload.page;
       state.isPageChanged = action.payload.isPageChanged;
@@ -37,6 +39,7 @@ export const postsSlice = createSlice({
     },
     [postsRequestAsync.rejected.type]: (state, action) => {
       state.status = 'error';
+      state.page = '';
       state.error = action.error;
     },
   },
